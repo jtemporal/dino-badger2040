@@ -150,7 +150,7 @@ def start_text():
     display.set_font("bitmap8")
     display.text("Press UP to start, A to abort", 20, 60, scale=2)
     display.text("High score: " + str(high_score), 20, 80, scale=2)
-    display.set_update_speed(badger2040.UPDATE_FAST)
+    display.set_update_speed(badger2040.UPDATE_TURBO)
     display.update()
 
 try:
@@ -180,6 +180,10 @@ def main():
             clear_screen()
             display.set_update_speed(badger2040.UPDATE_FAST)
             display.update()
-            turn_off()
+            # returns to main menu after game aborts
+            state = {"page": 0, "running": "/examples/badge"}
+            badger_os.state_save("launcher", state)
+            return
 
 main()
+import launcher
